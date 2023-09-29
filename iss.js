@@ -17,7 +17,7 @@ const fetchMyIP = function(callback) {
   request(url, (error, response, body) => {
     if (error) {
       return callback(error, null);
-      }
+    }
 
     if (response.statusCode !== 200) {
       callback(Error(`unknown status code: ${response.statusCode}`), null);
@@ -33,33 +33,33 @@ const fetchMyIP = function(callback) {
 
 
 
-    // callback(null, ipAddress);
+// callback(null, ipAddress);
 
 
   
 
 
-    const fetchCoordsByIP = function(ip, callback) {
-      request(`http://ipwho.is/${ip}`, (error, response, body) => {
+const fetchCoordsByIP = function(ip, callback) {
+  request(`http://ipwho.is/${ip}`, (error, response, body) => {
     
-        if (error) {
-          callback(error, null);
-          return;
-        }
+    if (error) {
+      callback(error, null);
+      return;
+    }
     
-        const parsedBody = JSON.parse(body);
+    const parsedBody = JSON.parse(body);
     
-        if (!parsedBody.success) {
-          const message = `Success status was ${parsedBody.success}. Server message says: ${parsedBody.message} when fetching for IP ${parsedBody.ip}`;
-          callback(Error(message), null);
-          return;
-        } 
+    if (!parsedBody.success) {
+      const message = `Success status was ${parsedBody.success}. Server message says: ${parsedBody.message} when fetching for IP ${parsedBody.ip}`;
+      callback(Error(message), null);
+      return;
+    }
     
-        const { latitude, longitude } = parsedBody;
+    const { latitude, longitude } = parsedBody;
     
-        callback(null, {latitude, longitude});
-      });
-    };
+    callback(null, {latitude, longitude});
+  });
+};
 
 
 // use request to fetch IP address from JSON API
